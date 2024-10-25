@@ -6,5 +6,5 @@
     TRAINER: "DevOps Trainer"
   tasks:
   - name: print the information
-    ansible.print.debug: # To print the information
+    ansible.builtin.debug: # To print the information
       msg: "Hi, I am learning {{COURSE}, Duration is: {{DURATION}}, Tariner is: {{TRAINER}}"
