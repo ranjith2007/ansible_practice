@@ -1,6 +1,15 @@
+#PLAY-01
 - name: PLAY-01
   hosts: web
   tasks:
   - name: PLAY-01 TASK-01
     ansible.builtin.debug:
       msg: "This is my first playbook"
+
+#PLAY-02    
+- name: PLAY-02
+  hosts: web
+  tasks:
+  - name: PLAY-02 TASK-02
+    ansible.builtin.debug:
+      msg: " This is my second playbook"  
