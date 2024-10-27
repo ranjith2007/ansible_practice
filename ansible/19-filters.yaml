@@ -32,9 +32,10 @@
       msg: "Min: {{ number | min }} Max: {{ number | max }}"    
 
   - name: convert map to list
-    course:
-      name: "DevOps with AWS"
-      duration: "120 hours"
-      trainer: "DevOps"
+    vars:
+      course:
+        name: "DevOps with AWS"
+        duration: "120 hours"
+        trainer: "DevOps"
     ansible.builtin.debug:
       msg: "{{ course | dict2items }}"         
