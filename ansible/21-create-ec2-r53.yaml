@@ -5,7 +5,7 @@
     subnet_id: subnet-0353fbc5b0a2e4017 # Replace with your subnet id
     sg_id: sg-015fed1b787f2227c
     ami_id: ami-09c813fb71547fc4f
-    zone: daws81s.online
+    zone: daws80s.online
     instances:
     - mysql
     - backend
@@ -35,5 +35,5 @@
       value: "{{ item.instance[0].private_ip_address }}"
       wait: true    
       overwrite: true
-      
+
     loop: "{{ ec2_instances.results }}"  
