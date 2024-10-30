@@ -9,7 +9,7 @@
     - mysql
     - backend
     - frontend
-    zone: aws80s.online
+    zone: devops81s.site
   tasks:
   - name: create ec2 instance
     amazon.aws.ec2_instance:
@@ -30,7 +30,7 @@
     amazon.aws.route53:
       state: present
       zone: "{{ zone }}"
-      record: "{{ item.item }}.{{ zone }}" #mysql.aws80s.online
+      record: "{{ item.item }}.{{ zone }}" #mysql.devops81s.site
       type: A
       ttl: 1
       value: "{{ item.instances[0].private_ip_address }}"
@@ -43,10 +43,10 @@
     amazon.aws.route53:
       state: present
       zone: "{{ zone }}"
-      record: "{{ zone }}" #mysql.aws80s.online
+      record: "{{ zone }}" #mysql.devops81s.site
       type: A
       ttl: 1
-      value: "{{ item.instances[0].public_ip_address }}"
+      value: "{{ item.instance[0].public_ip_address }}"
       wait: true    
       overwrite: true
     loop: "{{ ec2_instances.results }}"    
