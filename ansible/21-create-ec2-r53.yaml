@@ -11,6 +11,12 @@
     - frontend
     zone: devops81s.site
   tasks:
+  - name: ansible to install boto3 and botocore
+    ansible.builtin.pip:
+      name:
+      - boto3
+      - botocore
+      executable: pip3.9
   - name: create ec2 instance
     amazon.aws.ec2_instance:
       name: "{{ item }}"
@@ -43,7 +49,7 @@
     amazon.aws.route53:
       state: present
       zone: "{{ zone }}"
-      record: "{{ zone }}" #mysql.devops81s.site
+      record: "{{ zone }}" #devops81s.site
       type: A
       ttl: 1
       value: "{{ item.instance[0].public_ip_address }}"
