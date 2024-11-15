@@ -2,8 +2,8 @@
   hosts: local
   connection: local
   vars:
-    subnet_id: subnet-055b8b769f8773e34 # Replace with your subnet id
-    sg_id: sg-015fed1b787f2227c
+    subnet_id: subnet-0f481d19b685aac95 # Replace with your subnet id
+    sg_id: sg-0f575d808e73f7ee2
     ami_id: ami-09c813fb71547fc4f
     instances:
     - mysql
@@ -21,33 +21,33 @@
     loop: "{{ instances }}"  
     register: ec2_instances
       
-  # - name: print the information
-  #   ansible.builtin.debug:
-  #     msg: "{{ ec2_instances }}"    
+  - name: print the information
+    ansible.builtin.debug:
+      msg: "{{ ec2_instances }}"    
 
-  # # private ip address
-  # - name: create r53 private records
-  #   amazon.aws.route53:
-  #     state: present
-  #     zone: "{{ zone }}"
-  #     record: "{{ item.item }}.{{ zone }}" #mysql.devops81s.site
-  #     type: A
-  #     ttl: 1
-  #     value: "{{ item.instances[0].private_ip_address }}"
-  #     wait: true    
-  #     overwrite: true
-  #   loop: "{{ ec2_instances.results }}"  
+  # private ip address
+  - name: create r53 private records
+    amazon.aws.route53:
+      state: present
+      zone: "{{ zone }}"
+      record: "{{ item.item }}.{{ zone }}" #mysql.devops81s.site
+      type: A
+      ttl: 1
+      value: "{{ item.instances[0].private_ip_address }}"
+      wait: true    
+      overwrite: trueg
+    loop: "{{ ec2_instances.results }}"  
 
-  # # public ip address
-  # - name: create r53 public records
-  #   amazon.aws.route53:
-  #     state: present
-  #     zone: "{{ zone }}"
-  #     record: "{{ zone }}" #devops81s.site
-  #     type: A
-  #     ttl: 1
-  #     value: "{{ item.instance[0].public_ip_address }}"
-  #     wait: true    
-  #     overwrite: true
-  #   loop: "{{ ec2_instances.results }}"    
-  #   when: item.item == "frontend"
+  # public ip address
+  - name: create r53 public records
+    amazon.aws.route53:
+      state: present
+      zone: "{{ zone }}"
+      record: "{{ zone }}" #devops81s.site
+      type: A
+      ttl: 1
+      value: "{{ item.instance[0].public_ip_address }}"
+      wait: true    
+      overwrite: true
+    loop: "{{ ec2_instances.results }}"    
+    when: item.item == "frontend"
